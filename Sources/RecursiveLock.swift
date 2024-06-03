@@ -4,7 +4,7 @@
 
 import Foundation
 
-#if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(macOS) || os(tvOS) || os(watchOS) || os(visionOS)
 /// `os_unfair_lock_recursive` is, for some reason, a private-API.
 ///
 /// `RecursiveLock` is a fair, recursive lock where acquisition order is guaranteed and recursion is permitted.
@@ -77,14 +77,14 @@ internal final class RecursiveLock {
 }
 #else
 internal final class RecursiveLock {
-    private let lock = NSRecursiveLock()
+    private let recursiveLock = NSRecursiveLock()
 
     func lock() {
-        lock.lock()
+        recursiveLock.lock()
     }
 
     func unlock() {
-        lock.unlock()
+        recursiveLock.unlock()
     }
 }
 #endif
